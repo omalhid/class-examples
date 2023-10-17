@@ -5038,7 +5038,7 @@ const characters = [
       }
     ];
 
- // Return the list of all the characters from house Stark
+    // Return the list of all the characters from house Stark
 
 // 1. Go through the dataset to understand its structure
 // 2. Find where in the dataset "Stark" is defined --> where houseName: "Stark"
