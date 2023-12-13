@@ -49,5 +49,36 @@ router.get('/books/:bookId', (req, res) => {
       .catch(err => console.log(err))
  
 });
+
+// GET route to display the form to update a specific book
+router.get('/books/:bookId/edit', (req, res, next) => {
+  const { bookId } = req.params;
  
+  Book.findById(bookId)
+    .then(bookToEdit => {
+      console.log(bookToEdit);
+      res.render('books/book-update', bookToEdit)
+    })
+    .catch(error => next(error));
+});
+
+router.post('/books/:bookId/edit', (req, res, next) => {
+  const { bookId } = req.params;
+  console.log(req.body)
+
+  Book.findByIdAndUpdate(bookId, req.body, {new: true})
+      .then(updatedBook => {
+        console.log('updatedBook', updatedBook)
+        res.redirect(`/books/${updatedBook._id}`)
+      })
+      .catch(err => console.log(err))
+})
+ 
+router.post('/books/:bookId/delete', (req, res, next) => {
+  const { bookId } = req.params;
+
+  Book.findByIdAndDelete(bookId)
+      .then(() => res.redirect('/books'))
+      .catch(err => console.log(err))
+})
 module.exports = router;
